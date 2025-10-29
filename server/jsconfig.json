@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "checkJs": false,
+      "resolveJsonModule": true,
+      "moduleResolution": "bundler",
+      "target": "es2020",
+      "module": "es2015",
+      "noEmit":true
+    },
+    "exclude": [
+      "dist",
+      "node_modules",
+      "build",
+      ".vscode",
+      "coverage",
+      "jspm_packages",
+      "tmp",
+      "temp",
+      "bower_components",
+      ".npm",
+      ".yarn"
+    ],
+    "typeAcquisition": {
+      "enable": true
+    },
+  }
