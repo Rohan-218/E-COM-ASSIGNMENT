@@ -20,13 +20,14 @@ class Right {
 
   static user = Object.freeze({
     /* User Rights */
-    UPDATE_PROFILE: 'UPDATE_PROFILE',
+    VIEW_PRODUCTS: 'VIEW_PRODUCTS',
     VIEW_PROFILE: 'VIEW_PROFILE',
-    CHANGE_PASSWORD: 'CHANGE_PASSWORD',
-    BOOKING: 'BOOKING',
-    VIEW_BOOKING: 'VIEW_BOOKING',
-    UPDATE_BOOKING: 'UPDATE_BOOKING',
-    UPDATE_BOOKING_PASSENGER: 'UPDATE_BOOKING_PASSENGER',
+    UPDATE_PROFILE: 'UPDATE_PROFILE',
+    VIEW_CART: 'VIEW_CART',
+    ADD_TO_CART: 'ADD_TO_CART',
+    REMOVE_CART_ITEM: 'REMOVE_CART_ITEM',
+    CHECKOUT: 'CHECKOUT',
+    VIEW_ORDER: 'VIEW_ORDER',
   });
 
   // helper methods
@@ -38,29 +39,6 @@ class Right {
     return [].concat(
       Right.getRightArray(this.general),
       Right.getRightArray(this.user),
-    );
-  }
-
-  /**
-   * @returns {string[]}
-   */
-  static adminRights() {
-    return [].concat(
-      Right.getRightArray(this.general),
-      Right.getRightArray(this.user),
-      Right.getRightArray(this.admin),
-    );
-  }
-
-  /**
-   * @returns {string[]}
-   */
-  static superAdminRights() {
-    return [].concat(
-      Right.getRightArray(this.general),
-      Right.getRightArray(this.user),
-      Right.getRightArray(this.admin),
-      Right.getRightArray(this.superAdmin),
     );
   }
 
