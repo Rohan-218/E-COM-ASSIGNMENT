@@ -275,10 +275,8 @@ class UserService {
       hash = await new Password(dto.password).hashPassword();
     }
     return {
-      firstName: dto.firstName,
-      lastName: dto.lastName,
+      name: dto.name,
       email: dto.email,
-      role: dto.role,
       password: hash,
       status: STATUS.ACTIVE,
       createdBy,
@@ -288,8 +286,7 @@ class UserService {
   static updateUserDto(dto, updatedBy) {
     return {
       id: dto.id,
-      firstName: dto.firstName,
-      lastName: dto.lastName,
+      name: dto.name,
       updatedBy,
     };
   }
@@ -300,8 +297,7 @@ class UserService {
   static updateProfileDto(dto, actionUserId) {
     return {
       id: parserInteger(actionUserId),
-      firstName: parserString(dto?.firstName),
-      lastName: parserString(dto?.lastName),
+      name: parserString(dto?.name),
       email: parserString(dto?.email),
     };
   }
@@ -327,11 +323,8 @@ class UserService {
     return {
       id: user.id,
       email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: user.name,
       status: user.status,
-      role: user.role.getRoleName(),
-      profilePicture: user.profilePicture,
     };
   }
 

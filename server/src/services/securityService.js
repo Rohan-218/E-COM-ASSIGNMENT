@@ -99,7 +99,6 @@ class SecurityService {
         requestDetails,
         user.id,
         config.authTokens.audience.web,
-        user.role.getId(),
         !(user.lastLogin),
       );
       await this.userService.markUserLogin(client, user.id, requestDetails);

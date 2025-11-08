@@ -4,10 +4,10 @@ import {
 } from '../../../utils';
 
 export default Joi.object(((messageKey) => ({
-  firstName: requiredStringValidator(messageKey, 'firstName'),
-  lastName: requiredStringValidator(messageKey, 'lastName'),
+  name: requiredStringValidator(messageKey, 'name'),
   email: requiredEmailValidator(messageKey, 'email'),
   password: requiredStringValidator(messageKey, 'password'),
+  phoneNumber: requiredPhoneNumberValidator(messageKey, 'phoneNumber'),
   role: Joi.string().required()
     .messages({
       'any.required': `${messageKey}.role is required`,
