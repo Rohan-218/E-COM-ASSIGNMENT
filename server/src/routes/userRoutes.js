@@ -35,14 +35,14 @@ export default () => {
 //     },
 //   );
 
-  put(
-    featureLevel.production,
-    Right.general.CHANGE_PASSWORD,
-    routes.user.CHANGE_PASSWORD,
-    async (req) => {
-      const service = Container.get(UserService);
-      const data = await changeUserPasswordSchema.validateAsync(req.body);
-      return await service.changePassword(data, { ...req.currentUser });
-    },
-  );
+  // put(
+  //   featureLevel.production,
+  //   Right.general.CHANGE_PASSWORD,
+  //   routes.user.CHANGE_PASSWORD,
+  //   async (req) => {
+  //     const service = Container.get(UserService);
+  //     const data = await changeUserPasswordSchema.validateAsync(req.body);
+  //     return await service.changePassword(data, { ...req.currentUser });
+  //   },
+  // );
 };

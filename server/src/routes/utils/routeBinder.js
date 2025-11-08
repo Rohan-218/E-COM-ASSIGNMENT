@@ -49,35 +49,35 @@ export const publicDelete = (level, path, callback, middlewares) => {
   initPublicRoute(level, path, HttpMethod.delete, callback, middlewares);
 };
 
-// /**
-//  * Map the route for HTTP GET requests
-//  *
-//  * @param path  the path
-//  * @param callback The callback
-//  */
-// export const get = (level, right, path, callback, middlewares) => {
-//   initRouteWith(level, right, path, HttpMethod.get, callback, middlewares);
-// };
+/**
+ * Map the route for HTTP GET requests
+ *
+ * @param path  the path
+ * @param callback The callback
+ */
+export const get = (level, right, path, callback, middlewares) => {
+  initRouteWith(level, right, path, HttpMethod.get, callback, middlewares);
+};
 
-// /**
-//  * Map the route for HTTP POST requests
-//  *
-//  * @param path  the path
-//  * @param callback The callback
-//  */
-// export const post = (level, right, path, callback, middlewares) => {
-//   initRouteWith(level, right, path, HttpMethod.post, callback, middlewares);
-// };
+/**
+ * Map the route for HTTP POST requests
+ *
+ * @param path  the path
+ * @param callback The callback
+ */
+export const post = (level, right, path, callback, middlewares) => {
+  initRouteWith(level, right, path, HttpMethod.post, callback, middlewares);
+};
 
-// /**
-//  * Map the route for HTTP PUT requests
-//  *
-//  * @param path  the path
-//  * @param callback The callback
-//  */
-// export const put = (level, right, path, callback, middlewares) => {
-//   initRouteWith(level, right, path, HttpMethod.put, callback, middlewares);
-// };
+/**
+ * Map the route for HTTP PUT requests
+ *
+ * @param path  the path
+ * @param callback The callback
+ */
+export const put = (level, right, path, callback, middlewares) => {
+  initRouteWith(level, right, path, HttpMethod.put, callback, middlewares);
+};
 
 // /**
 //  * Map the route for HTTP PATCH requests
@@ -118,38 +118,38 @@ const initPublicRoute = (level, path, method, callback, middlewares = []) => {
   }
 };
 
-// const initRouteWith = (level, right, path, method, callback, middlewares = []) => {
-//   if (isApplicableFeatureLevel(level)) {
-//     logInitialization(path, method);
-//     route[method](path, [verifyToken, ...middlewares], async (req, res, next) => {
-//       try {
-//         const { currentUser } = req;
-//         if (!(currentUser
-//                 && Authentication.hasPermission(req.currentUser.rights || [], right))) {
-//           throw new HttpException.Forbidden(formatErrorResponse('authToken', 'notAuthorised'));
-//         }
-//         const data = await callback(req, res, next);
-//         if (data) {
-//           const requestDetails = {
-//             ip: req.ip,
-//             userAgent: req?.headers['user-agent'] || null,
-//           };
-//           const updatedToken = SecurityService.updateToken(
-//             requestDetails,
-//             currentUser.id,
-//             currentUser.tokenAud,
-//             currentUser.role.getId(),
-//           );
-//           res.setHeader('Authorization', `Bearer ${updatedToken}`);
-//           return res.json(data).status(200);
-//         }
-//         throw new HttpException.BadRequest(formatErrorResponse('general', 'noDataFound'));
-//       } catch (err) {
-//         return next(err);
-//       }
-//     });
-//   }
-// };
+const initRouteWith = (level, right, path, method, callback, middlewares = []) => {
+  if (isApplicableFeatureLevel(level)) {
+    logInitialization(path, method);
+    route[method](path, [verifyToken, ...middlewares], async (req, res, next) => {
+      try {
+        const { currentUser } = req;
+        if (!(currentUser
+                && Authentication.hasPermission(req.currentUser.rights || [], right))) {
+          throw new HttpException.Forbidden(formatErrorResponse('authToken', 'notAuthorised'));
+        }
+        const data = await callback(req, res, next);
+        if (data) {
+          const requestDetails = {
+            ip: req.ip,
+            userAgent: req?.headers['user-agent'] || null,
+          };
+          const updatedToken = SecurityService.updateToken(
+            requestDetails,
+            currentUser.id,
+            currentUser.tokenAud,
+            currentUser.role.getId(),
+          );
+          res.setHeader('Authorization', `Bearer ${updatedToken}`);
+          return res.json(data).status(200);
+        }
+        throw new HttpException.BadRequest(formatErrorResponse('general', 'noDataFound'));
+      } catch (err) {
+        return next(err);
+      }
+    });
+  }
+};
 
 export const logInitialization = (path, method) => {
   // eslint-disable-next-line no-console
