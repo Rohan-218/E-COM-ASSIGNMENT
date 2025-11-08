@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import 'reflect-metadata';
 import express from 'express';
 import moment from 'moment';
 import config from './config';

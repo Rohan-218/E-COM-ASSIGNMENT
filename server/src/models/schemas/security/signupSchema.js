@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import {
-  requiredStringValidator, requiredEmailValidator,
+  requiredStringValidator, requiredEmailValidator, requiredPhoneNumberValidator
 } from '../../../utils';
 
 export default Joi.object(((messageKey) => ({

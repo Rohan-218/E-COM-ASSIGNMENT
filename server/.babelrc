@@ -1,7 +1,14 @@
 {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "sourceMaps": "inline",
-    "retainLines": true
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["@babel/plugin-transform-private-methods", { "loose": true }],
+  ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
+  ["@babel/plugin-proposal-metadata"]
+  ],
+  "sourceMaps": "inline",
+  "retainLines": true
 }
