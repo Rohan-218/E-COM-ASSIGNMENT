@@ -7,7 +7,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     status status_enum NOT NULL,
-    created_by INT NOT NULL,
+    created_by INT ,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_by INT NOT NULL,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
@@ -21,9 +21,9 @@ CREATE TABLE user_details (
     phone_no BIGINT NOT NULL,
     address VARCHAR(255),
     status status_enum NOT NULL,
-    created_by INT NOT NULL,
+    created_by INT,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_by INT NOT NULL,
+    updated_by INT,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -88,6 +88,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- FUNCTION to set created_by & updated_by = self ID on insert
+CREATE OR REPLACE FUNCTION set_created_by_self()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.created_by IS NULL THEN
+        NEW.created_by := NEW.id;
+    END IF;
+    IF NEW.updated_by IS NULL THEN
+        NEW.updated_by := NEW.id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- TRIGGERS
 CREATE TRIGGER trg_users_updated_on BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION set_updated_on();
 CREATE TRIGGER trg_user_details_updated_on BEFORE UPDATE ON user_details FOR EACH ROW EXECUTE FUNCTION set_updated_on();
@@ -95,3 +109,9 @@ CREATE TRIGGER trg_product_updated_on BEFORE UPDATE ON product FOR EACH ROW EXEC
 CREATE TRIGGER trg_cart_updated_on BEFORE UPDATE ON cart FOR EACH ROW EXECUTE FUNCTION set_updated_on();
 CREATE TRIGGER trg_cart_product_updated_on BEFORE UPDATE ON cart_product FOR EACH ROW EXECUTE FUNCTION set_updated_on();
 CREATE TRIGGER trg_orders_updated_on BEFORE UPDATE ON orders FOR EACH ROW EXECUTE FUNCTION set_updated_on();
+
+-- TRIGGER for setting created_by and updated_by automatically in users
+CREATE TRIGGER trg_users_created_by_self
+BEFORE INSERT ON users
+FOR EACH ROW
+EXECUTE FUNCTION set_created_by_self();
