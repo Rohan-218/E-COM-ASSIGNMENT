@@ -1,6 +1,8 @@
 import Joi from 'joi';
 import {
-  requiredStringValidator, requiredEmailValidator, requiredPhoneNumberValidator
+  requiredStringValidator,
+  requiredEmailValidator,
+  requiredPhoneNumberValidator
 } from '../../../utils';
 
 export default Joi.object(((messageKey) => ({
@@ -9,7 +11,7 @@ export default Joi.object(((messageKey) => ({
   password: requiredStringValidator(messageKey, 'password'),
   phoneNumber: requiredPhoneNumberValidator(messageKey, 'phoneNumber')
     .messages({
-      'any.required': `${messageKey}.role is required`,
-      'number.base': `${messageKey}.role must be a string`,
+      'any.required': `${messageKey}.phoneNumber is required`,
+      'number.base': `${messageKey}.phoneNumber must be a number`,
     }),
 }))('signup')).options({ stripUnknown: true });

@@ -101,7 +101,6 @@ class SecurityService {
         config.authTokens.audience.web,
         !(user.lastLogin),
       );
-      await this.userService.markUserLogin(client, user.id, requestDetails);
       return { token };
     });
   }

@@ -31,7 +31,6 @@ class UserService {
     try {
       const createUserDto = await UserService.createUserDto(dto, createdBy);
       const id = await this.dao.createUser(client, createUserDto);
-      await this.dao.attachRole(client, id, createUserDto.role);
       const user = this.findUserById(client, id);
       return user;
     } catch (err) {
@@ -53,21 +52,6 @@ class UserService {
     return await this.findUserById(client, dto.id);
   }
 
-  async markUserLogin(client, userId, requestDetails) {
-    const messageKey = 'markUserLogin';
-    try {
-      await this.dao.markUserLogin(client, userId, requestDetails);
-    } catch (error) {
-      console.log(error);
-      throw new HttpException.ServerError(formatErrorResponse(messageKey, 'unableToMark'));
-    }
-  }
-
-  async updateUserWrongLoginCount(wrongLoginCount, userId) {
-    return this.txs.withTransaction(async (client) => {
-      await this.dao.markWrongLoginAttempt(client, wrongLoginCount, userId);
-    });
-  }
 
   async findUserById(client, id) {
     return UserService.fromUser(await this.dao.findUserById(client, id));
@@ -277,6 +261,7 @@ class UserService {
     return {
       name: dto.name,
       email: dto.email,
+      phone_no: dto.phoneNumber,
       password: hash,
       status: STATUS.ACTIVE,
       createdBy,
