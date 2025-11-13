@@ -1,6 +1,6 @@
 export const STATUS = Object.freeze({
-  ACTIVE: 'ACTIVE',
-  INACTIVE: 'INACTIVE',
+  ACTIVE: 'Active',
+  INACTIVE: 'Inactive',
 });
 
 export const MESSAGE_TYPES = Object.freeze({
