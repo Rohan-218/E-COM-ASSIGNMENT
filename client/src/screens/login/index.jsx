@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import "./index.css";
 import { LoginButton } from "../../components/button/styles.jsx";
-import loginLogo from "/src/assets/Portal/Login/login-logo.jpg";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
@@ -80,15 +78,8 @@ const Login = () => {
 
   return (
     <div className="slogin-page">
-      <div className="ssidebar-section">
-        <div className="sprofile-image-container">
-          <img src={loginLogo} alt="Profile" className="sprofile-image" />
-        </div>
-      </div>
-      <div className="login-container">
         <div className="sform">
           <h1 className="login-h1">Login</h1>
-          <p>Welcome! Please enter your details.</p>
           <form onSubmit={onSubmitForm}>
             <div className="input-group">
               <label className="slabel">Email:</label>
@@ -130,7 +121,6 @@ const Login = () => {
             </p>
           )}
         </div>
-      </div>
     </div>
   );
 };

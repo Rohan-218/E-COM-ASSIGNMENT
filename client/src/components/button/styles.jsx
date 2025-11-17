@@ -9,7 +9,7 @@ export const LoginButton = styled.button`
     color: white;
     border: none;
     border-radius: 5px;
-    width: 95%;
+    width: 100%;
 
     &:hover {
         background-color: white;
